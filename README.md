@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📄 DocFlow Engine (Japanese Invoice AI Pipeline)
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![Supabase](https://img.shields.io/badge/Supabase-Database_&_Storage-3ECF8E?style=for-the-badge&logo=supabase)
+![Gemini AI](https://img.shields.io/badge/Google_Gemini-1.5_Flash-4285F4?style=for-the-badge&logo=google)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-Nova-black?style=for-the-badge)
 
-First, run the development server:
+A full-stack, serverless application designed to automate the extraction, translation, and categorization of Japanese business invoices (請求書) and receipts (レシート). 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Built specifically to showcase a zero-cost, multi-agent AI architecture handling non-English OCR and structured data generation.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Intelligent Data Extraction:** Upload raw images of Japanese invoices, and the pipeline automatically extracts the Vendor Name, Total Amount, Date, and Category.
+* **Native Translation:** Automatically localizes complex Japanese accounting terminology into structured English JSON.
+* **Serverless AI Pipeline:** Decouples the OCR reading process (Tesseract) from the reasoning and structuring engine (Gemini 1.5) for a highly scalable backend architecture.
+* **Interactive Dashboard:** A beautiful, responsive workspace built with Shadcn UI to review processed documents, complete with an interactive side-by-side data verification sheet.
+* **Real-time Analytics:** Tracks total expenditure and processing volume across the entire database.
+* **Cloud Storage & Database:** Utilizes Supabase for secure image bucket storage and PostgreSQL row management.
 
-## Learn More
+## 🏗️ Architecture & System Design
 
-To learn more about Next.js, take a look at the following resources:
+This project utilizes a multi-step backend pipeline to ensure high accuracy while keeping server costs at zero:
+1. **Client:** User uploads an image (`.jpg`/`.png`).
+2. **Storage:** Image is secured in a Supabase Storage Bucket.
+3. **Trigger:** The public URL and Database ID are sent to the Next.js API Route.
+4. **OCR (The Eyes):** Tesseract.js processes the image buffer in `jpn` mode to extract raw characters.
+5. **LLM (The Brain):** Google's Gemini 1.5 Flash receives the raw Japanese text with a strict system prompt, translating and structuring the data into a strict JSON schema.
+6. **Persistence:** The English JSON is saved back to Supabase PostgreSQL, and the frontend Dashboard is revalidated.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
